@@ -1,22 +1,19 @@
 package com.dzhenetl.hiber.repository;
 
 import com.dzhenetl.hiber.entity.Person;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class PersonRepository {
+public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
 
-    @PersistenceContext
-    private EntityManager manager;
+    List<Person> findAllByCityOfLiving(String city);
 
-    public List<Person> getPersonsByCity(String city) {
-        Query query = manager.createQuery("select p from Person p where p.cityOfLiving = :city");
-        query.setParameter("city", city);
-        return query.getResultList();
-    }
+    List<Person> findByAgeLessThan(Sort sort, Integer age);
+
+    Optional<Person> findByNameIsAndSurnameIs(String name, String surname);
 }

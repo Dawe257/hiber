@@ -1,9 +1,7 @@
 package com.dzhenetl.hiber.entity;
 
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +11,12 @@ import lombok.Setter;
 @Setter
 public class Person {
 
-    @EmbeddedId
-    private PersonId personId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String surname;
+    private Integer age;
     private String phoneNumber;
     private String cityOfLiving;
 }
